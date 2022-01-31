@@ -8,7 +8,7 @@
         {
             "label": "Clean",
             "options": {
-                "cwd": "${workspaceFolder}/script/"
+                "cwd": "${workspaceFolder}/Platform/build/"
             },
             "command": "./cmake_clean.sh",
             "detail": "清除CMake生成文件",
@@ -19,7 +19,7 @@
         {
             "label": "Config & Build",
             "options": {
-                "cwd": "${workspaceFolder}/script/"
+                "cwd": "${workspaceFolder}/Platform/build/"
             },
             "command": "./cmake_cfg_build.sh",
             "detail": "使用cmake命令创建makefile,并生成可执行文件",
@@ -30,7 +30,7 @@
         {
             "label": "Build",
             "options": {
-                "cwd": "${workspaceFolder}/script/"
+                "cwd": "${workspaceFolder}/Platform/build/"
             },
             "command": "./cmake_build.sh",
             "detail": "根据makefile生成可执行文件和库文件",
@@ -41,13 +41,10 @@
         {
             "label": "Run",
             "options": {
-                "cwd": "${workspaceFolder}/script/"
+                "cwd": "${workspaceFolder}/Platform/build/"
             },
             "command": "./cmake_run.sh",
-            "args": [
-                "test.txt",
-                "test1.txt"
-            ],
+            "args": [],
             "detail": "运行程序",
             "problemMatcher": [
                 "$gcc"
@@ -56,10 +53,10 @@
         {
             "label": "Init Env",
             "options": {
-                "cwd": "${workspaceFolder}/script/"
+                "cwd": "${workspaceFolder}/Platform/build/"
             },
             "command": "./init_env.sh",
-            "args": [],
+            "args": ["${workspaceFolder}"],
             "detail": "运行程序",
             "problemMatcher": [
                 "$gcc"
