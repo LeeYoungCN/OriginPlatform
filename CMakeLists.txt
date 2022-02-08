@@ -4,7 +4,7 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/toolchain.cmake)
 set(BUILDCACHE_PATH         ${CMAKE_SOURCE_DIR}/buildcache)
 set(LIBRARY_OUTPUT_PATH     ${CMAKE_SOURCE_DIR}/lib)
 set(EXECUTABLE_OUTPUT_PATH  ${CMAKE_SOURCE_DIR}/output)
-set(LIB_NAME    Platform_v001)
+set(LIB_NAME    Platform_${OS}_v001)
 set(TARGET_NAME TestPlatform)
 
 set(CMAKE_CXX_STANDARD 17)
