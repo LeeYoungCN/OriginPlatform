@@ -1,8 +1,8 @@
 project(Platform)
 cmake_minimum_required(VERSION 3.4.1)
 include( ${CMAKE_SOURCE_DIR}/cmake/toolchain.cmake)
-set(BUILDCACHE_PATH         ${CMAKE_SOURCE_DIR}/buildcache)
 set(GOOGLE_TEST_PATH        ${CMAKE_SOURCE_DIR}/google_test)
+set(GTEST_LIB ${GOOGLE_TEST_PATH}/lib/${CMAKE_SYSTEM_NAME})
 set(CMAKE_INSTALL_PREFIX    ${CMAKE_SOURCE_DIR})
 
 set(LIB_NAME    UserLib)
@@ -21,10 +21,10 @@ add_library(${LIB_NAME} STATIC)
 add_subdirectory(${CODE_PATH})
 add_subdirectory(${TEST_PATH})
 
-link_directories(${LIBRARY_OUTPUT_PATH})
+link_directories(${GOOGLE_TEST_PATH}/lib/${CMAKE_SYSTEM_NAME})
 target_include_directories(${TEST_TARGET} PRIVATE ${GOOGLE_TEST_PATH})
 
 install(TARGETS ${LIB_NAME} ARCHIVE DESTINATION lib)
 install(TARGETS ${TEST_TARGET} RUNTIME DESTINATION output)
-
-target_link_libraries(${TEST_TARGET} ${LIB_NAME} pthread ${GOOGLE_TEST_PATH}/lib/libgtest.a)
+message("CMAKE_SYSTEM_NAME ${CMAKE_SYSTEM_NAME}")
+target_link_libraries(${TEST_TARGET} ${LIB_NAME} pthread ${GTEST_LIB}/libgtest.a)
