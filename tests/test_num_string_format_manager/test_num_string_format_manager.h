@@ -6,7 +6,8 @@
 
 struct TestCaseSt {
     std::string num_str;
-    NumStrFmtEnum num_fmt;
+    NumStrFmtEnum test_fmt;
+    NumStrFmtEnum actual_fmt;
     std::string num_part;
 };
 
