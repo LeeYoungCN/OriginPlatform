@@ -31,16 +31,16 @@ namespace {
 }
 
 // 数字与字符串装换
-string NumStringFormatManager::Num2Str(UINT32 num, NumStrFmtEnum num_fmt)
+string NumStringFormatManager::Num2Str(const UINT32 num, const NumStrFmtEnum &num_fmt)
 {
     return "";
 }
 
-UINT32 NumStringFormatManager::Str2Num(string num_str)
+UINT32 NumStringFormatManager::Str2Num(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
-    NumStrFmtEnum num_fmt = GetNumFmtType(num_str);
+    NumStrFmtEnum fmt = JudgeNumFmt(num_str, num_fmt);
 
-    if (num_fmt == NumStrFmtEnum::NONE) {
+    if (fmt == NumStrFmtEnum::NONE) {
         return 0;
     }
 
@@ -49,13 +49,13 @@ UINT32 NumStringFormatManager::Str2Num(string num_str)
     UINT32 prefixLen = NUM_FMT_INFO_MAP.at(num_fmt).prefix.length();
 
     for (UINT32 i = num_str.length(); i > prefixLen; i--) {
-        ret_num += Char2Num(num_str[i - 1], num_fmt) * wieght;
-        wieght *= NUM_FMT_INFO_MAP.at(num_fmt).weight;
+        ret_num += Char2Num(num_str[i - 1], fmt) * wieght;
+        wieght *= NUM_FMT_INFO_MAP.at(fmt).weight;
     }
     return ret_num;
 }
 
-UINT32 NumStringFormatManager::Char2Num(CHAR c, NumStrFmtEnum num_fmt)
+UINT32 NumStringFormatManager::Char2Num(const CHAR c, const NumStrFmtEnum &num_fmt)
 {
     UINT32 num = 0;
     if (c >= '0' && c <= '9') {
@@ -72,13 +72,17 @@ UINT32 NumStringFormatManager::Char2Num(CHAR c, NumStrFmtEnum num_fmt)
 }
 
 // 字符串格式判断
-bool NumStringFormatManager::IsRightFmt(string num_str, NumStrFmtEnum num_fmt)
+bool NumStringFormatManager::IsRightFmt(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
     return regex_match(num_str, NUM_FMT_INFO_MAP.at(num_fmt).pattern);
 }
 
-NumStrFmtEnum NumStringFormatManager::GetNumFmtType(string num_str)
+NumStrFmtEnum NumStringFormatManager::JudgeNumFmt(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
+    if (num_fmt != NumStrFmtEnum::NONE) {
+        return IsRightFmt(num_str, num_fmt) ? num_fmt : NumStrFmtEnum::NONE;
+    }
+
     for (const auto& [fmt, _] : NUM_FMT_INFO_MAP) {
         if (IsRightFmt(num_str, fmt)) {
             return fmt;
@@ -88,11 +92,14 @@ NumStrFmtEnum NumStringFormatManager::GetNumFmtType(string num_str)
 }
 
 // 字符串分解
-bool NumStringFormatManager::HasPrefix(string num_str, NumStrFmtEnum num_fmt)
+bool NumStringFormatManager::HasPrefix(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
-    if (!IsRightFmt(num_str, num_fmt)) {
-        return false;
+    NumStrFmtEnum fmt = JudgeNumFmt(num_str, num_fmt);
+
+    if (fmt == NumStrFmtEnum::NONE) {
+        return 0;
     }
+
     string prefix = NUM_FMT_INFO_MAP.at(num_fmt).prefix;
     UINT32 prefixLen = prefix.length();
     if (num_str.length() < prefixLen) {
@@ -106,24 +113,18 @@ bool NumStringFormatManager::HasPrefix(string num_str, NumStrFmtEnum num_fmt)
     return false;
 }
 
-string NumStringFormatManager::GetNumPart(string num_str)
+string NumStringFormatManager::GetNumPart(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
-    NumStrFmtEnum num_fmt = GetNumFmtType(num_str);
+    NumStrFmtEnum fmt = JudgeNumFmt(num_str, num_fmt);
 
-    if (num_fmt == NumStrFmtEnum::NONE) {
+    if (fmt == NumStrFmtEnum::NONE) {
         return "";
     }
     
-    try {
-        return num_str.substr(NUM_FMT_INFO_MAP.at(num_fmt).prefix.length());
-    } catch(std::exception& e) {
-        cout << num_str << endl;
-        cout << (int)(num_fmt) << endl;
-        return "";
-    }
+    return num_str.substr(NUM_FMT_INFO_MAP.at(fmt).prefix.length());
 }
 
-UINT32 NumStringFormatManager::NumPartLen(string num_str, NumStrFmtEnum num_fmt)
+UINT32 NumStringFormatManager::NumPartLen(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
-    return GetNumPart(num_str).length();
+    return GetNumPart(num_str, num_fmt).length();
 }
