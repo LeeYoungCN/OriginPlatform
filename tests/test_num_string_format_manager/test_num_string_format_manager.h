@@ -7,6 +7,7 @@
 struct TestCaseSt {
     std::string num_str;
     NumStrFmtEnum num_fmt;
+    std::string num_part;
 };
 
 class TestNumStringFormatManager : public testing::Test {
@@ -17,7 +18,7 @@ protected:
     void SetUp();
     void TearDown();
 
-    void TestJudgeFmt(bool expectValue, TestCaseSt testCase);
+    void TestIsRightFmt(TestCaseSt testCase);
 };
 
 #endif // TEST_NUM_STRING_FORMAT_MANAGER_H

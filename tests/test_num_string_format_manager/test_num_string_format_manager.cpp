@@ -1,6 +1,8 @@
 #include "test_num_string_format_manager.h"
+#include <vector>
 
 #define CALL(func) NumStringFormatManager::func
+#define ENUM(type) NumStrFmtEnum::type
 
 void TestNumStringFormatManager::SetUpTestCase() {}
 void TestNumStringFormatManager::TearDownTestCase() {}
@@ -8,17 +10,43 @@ void TestNumStringFormatManager::TearDownTestCase() {}
 void TestNumStringFormatManager::SetUp() {}
 void TestNumStringFormatManager::TearDown() {}
 
-void TestNumStringFormatManager::TestJudgeFmt(bool expectValue, TestCaseSt testCase)
+void TestNumStringFormatManager::TestIsRightFmt(TestCaseSt testCase)
 {
-    EXPECT_EQ(
-        expectValue,
-        CALL(IsRightFmt)(testCase.num_str, testCase.num_fmt)
-    ) << testCase.num_str;
+    // if (testCase.num_fmt == ENUM(NONE)) {
+    //     EXPECT_FALSE(CALL(IsRightFmt)(testCase.num_str, testCase.num_fmt)) << "IsRightFmt";
+    // } else {
+    //     EXPECT_TRUE(CALL(IsRightFmt)(testCase.num_str, testCase.num_fmt)) << "IsRightFmt";
+    // }
+    EXPECT_EQ(testCase.num_fmt,  CALL(GetNumFmtType)(testCase.num_str)) << "GetNumFmtType";
+    EXPECT_EQ(testCase.num_part, CALL(GetNumPart)(testCase.num_str)) << "GetNumPart";
 }
 
-TEST_F(TestNumStringFormatManager, JudgeFmt)
+TEST_F(TestNumStringFormatManager, IsRightFmt_true)
 {
-    TestJudgeFmt(true, TestCaseSt{"0x1", NumStrFmtEnum::HEX});
-    TestJudgeFmt(true, TestCaseSt{"1", NumStrFmtEnum::HEX});
-    TestJudgeFmt(false, TestCaseSt{"0Wb1", NumStrFmtEnum::HEX});
+    std::vector<TestCaseSt> testCaseVec = {
+        {"0x0123456789",    ENUM(HEX),  "0123456789"},
+        {"0xabcdefABCDEF",  ENUM(HEX),  "abcdefABCDEF"},
+        {"0o01234567",      ENUM(OCT),  "01234567"},
+        {"0123456789",      ENUM(DEC),  "0123456789"},
+        {"0b01",            ENUM(NONE), "01"},
+        // 无前缀
+        {"0123456789",      ENUM(NONE), ""},
+        {"abcdefABCDEF",    ENUM(NONE), ""},
+        {"01234567",        ENUM(NONE), ""},
+        {"0101010",         ENUM(NONE), ""},
+        // 超范围
+        {"0xghijkGHIJK",    ENUM(NONE), ""},
+        {"abcdefghiasd",    ENUM(NONE), ""},
+        {"0o89",            ENUM(NONE), ""},
+        {"0b23456789a",     ENUM(NONE), ""},
+        // 无内容
+        {"0x",              ENUM(NONE), ""},
+        {"0o",              ENUM(NONE), ""},
+        {"",                ENUM(NONE), ""},
+        {"0b",              ENUM(NONE), ""},
+    };
+
+    for (const auto& testCase : testCaseVec) {
+        TestIsRightFmt(testCase);
+    }
 }

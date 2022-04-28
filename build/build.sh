@@ -5,7 +5,8 @@ cache_path=buildcache
 output_path=output
 release_path=release
 component_name=PublicFunctionTest
-test_exe=${RunTest}
+test_exe=RunTest
+exe_suffix=""
 
 if [ ! -d buildcache ]; then
     mkdir buildcache
@@ -19,10 +20,11 @@ os=$(uname -s)
 os=${os%_*}
 if [[ ${os} == "MINGW"* ]]; then
     cmake -S . -B ${cache_path}  -G "MinGW Makefiles"
+    exe_suffix=".exe"
 else
     cmake -S . -B ${cache_path}
 fi
-cmake --build ${cache_path} -j8
+cmake --build ${cache_path} -j16
 cmake --install ${cache_path} --component ${component_name}
 
-./${output_path}/${test_exe}*
+./${output_path}/${test_exe}${exe_suffix}
