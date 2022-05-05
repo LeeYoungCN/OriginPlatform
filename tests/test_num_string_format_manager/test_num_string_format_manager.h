@@ -3,12 +3,14 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include "num_string_format_manager.h"
+#include "public_typedef.h"
 
 struct TestCaseSt {
     std::string num_str;
     NumStrFmtEnum test_fmt;
     NumStrFmtEnum actual_fmt;
     std::string num_part;
+    UINT64 num;
 };
 
 class TestNumStringFormatManager : public testing::Test {
