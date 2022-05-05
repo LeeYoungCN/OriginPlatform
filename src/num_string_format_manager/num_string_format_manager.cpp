@@ -20,13 +20,23 @@ namespace {
         {NumStrFmtEnum::HEX, NumFmtInfo{16, "0x", regex{"^0x[0-9a-fA-F]+$"}}},
     };
 
-    const map<CHAR, UINT32> HEX_CHAR_TO_NUM = {
-        {'A', 10}, {'a', 10},
-        {'B', 11}, {'b', 11},
-        {'C', 12}, {'c', 12},
-        {'D', 13}, {'d', 13},
-        {'E', 14}, {'e', 14},
-        {'F', 15}, {'f', 15},
+    const map<CHAR, UINT32> CHAR_TO_NUM = {
+        {'0',  0},  {'1',  1}, 
+        {'2',  2},  {'3',  3},
+        {'4',  4},  {'5',  5}, 
+        {'6',  6},  {'7',  7}, 
+        {'8',  8},  {'9',  9},
+        {'A', 10},  {'a', 10},
+        {'B', 11},  {'b', 11},
+        {'C', 12},  {'c', 12},
+        {'D', 13},  {'d', 13},
+        {'E', 14},  {'e', 14},
+        {'F', 15},  {'f', 15},
+    };
+
+    const CHAR NUM_TO_CHAR[] = {
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        'A', 'B', 'C', 'D', 'E', 'F'
     };
 }
 
@@ -36,11 +46,16 @@ string NumStringFormatManager::Num2Str(const UINT32 num, const NumStrFmtEnum &nu
     return "";
 }
 
+UINT32 NumStringFormatManager::Str2Num(const string &num_str)
+{
+    NumStrFmtEnum num_fmt = JudgeNumFmt(num_str);
+
+    return (num_fmt == NumStrFmtEnum::NONE ? 0 : Str2Num(num_str, num_fmt));
+}
+
 UINT32 NumStringFormatManager::Str2Num(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
-    NumStrFmtEnum fmt = JudgeNumFmt(num_str, num_fmt);
-
-    if (fmt == NumStrFmtEnum::NONE) {
+    if (IsRightFmt(num_str, num_fmt) == false) {
         return 0;
     }
 
@@ -49,20 +64,15 @@ UINT32 NumStringFormatManager::Str2Num(const string &num_str, const NumStrFmtEnu
     UINT32 prefixLen = NUM_FMT_INFO_MAP.at(num_fmt).prefix.length();
 
     for (UINT32 i = num_str.length(); i > prefixLen; i--) {
-        ret_num += Char2Num(num_str[i - 1], fmt) * wieght;
-        wieght *= NUM_FMT_INFO_MAP.at(fmt).weight;
+        ret_num += Char2Num(num_str[i - 1], num_fmt) * wieght;
+        wieght *= NUM_FMT_INFO_MAP.at(num_fmt).weight;
     }
     return ret_num;
 }
 
 UINT32 NumStringFormatManager::Char2Num(const CHAR c, const NumStrFmtEnum &num_fmt)
 {
-    UINT32 num = 0;
-    if (c >= '0' && c <= '9') {
-        num = c - '0';
-    } else if (num_fmt == NumStrFmtEnum::HEX) {
-        num = HEX_CHAR_TO_NUM.at(c);
-    }
+    UINT32 num = CHAR_TO_NUM.at(c);
 
     if (num >= NUM_FMT_INFO_MAP.at(num_fmt).weight) {
         return 0;
@@ -74,15 +84,15 @@ UINT32 NumStringFormatManager::Char2Num(const CHAR c, const NumStrFmtEnum &num_f
 // 字符串格式判断
 bool NumStringFormatManager::IsRightFmt(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
+    if (num_fmt == NumStrFmtEnum::NONE) {
+        return false;
+    }
+
     return regex_match(num_str, NUM_FMT_INFO_MAP.at(num_fmt).pattern);
 }
 
-NumStrFmtEnum NumStringFormatManager::JudgeNumFmt(const string &num_str, const NumStrFmtEnum &num_fmt)
+NumStrFmtEnum NumStringFormatManager::JudgeNumFmt(const string &num_str)
 {
-    if (num_fmt != NumStrFmtEnum::NONE) {
-        return IsRightFmt(num_str, num_fmt) ? num_fmt : NumStrFmtEnum::NONE;
-    }
-
     for (const auto& [fmt, _] : NUM_FMT_INFO_MAP) {
         if (IsRightFmt(num_str, fmt)) {
             return fmt;
@@ -94,10 +104,8 @@ NumStrFmtEnum NumStringFormatManager::JudgeNumFmt(const string &num_str, const N
 // 字符串分解
 bool NumStringFormatManager::HasPrefix(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
-    NumStrFmtEnum fmt = JudgeNumFmt(num_str, num_fmt);
-
-    if (fmt == NumStrFmtEnum::NONE) {
-        return 0;
+    if (IsRightFmt(num_str, num_fmt) == false) {
+        return false;
     }
 
     string prefix = NUM_FMT_INFO_MAP.at(num_fmt).prefix;
@@ -115,13 +123,11 @@ bool NumStringFormatManager::HasPrefix(const string &num_str, const NumStrFmtEnu
 
 string NumStringFormatManager::GetNumPart(const string &num_str, const NumStrFmtEnum &num_fmt)
 {
-    NumStrFmtEnum fmt = JudgeNumFmt(num_str, num_fmt);
-
-    if (fmt == NumStrFmtEnum::NONE) {
+    if (IsRightFmt(num_str, num_fmt) == false) {
         return "";
     }
     
-    return num_str.substr(NUM_FMT_INFO_MAP.at(fmt).prefix.length());
+    return num_str.substr(NUM_FMT_INFO_MAP.at(num_fmt).prefix.length());
 }
 
 UINT32 NumStringFormatManager::NumPartLen(const string &num_str, const NumStrFmtEnum &num_fmt)

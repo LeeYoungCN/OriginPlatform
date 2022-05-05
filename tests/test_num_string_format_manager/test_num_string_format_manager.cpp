@@ -18,7 +18,6 @@ void TestNumStringFormatManager::TestIsRightFmt(TestCaseSt testCase)
         EXPECT_TRUE(CALL(IsRightFmt)(testCase.num_str, testCase.test_fmt)) << "IsRightFmt";
     }
     EXPECT_EQ(testCase.actual_fmt,  CALL(JudgeNumFmt)(testCase.num_str)) << "GetNumFmtType";
-    EXPECT_EQ(testCase.actual_fmt,  CALL(JudgeNumFmt)(testCase.num_str, testCase.test_fmt)) << "GetNumFmtType";
     EXPECT_EQ(testCase.num_part,    CALL(GetNumPart)(testCase.num_str, testCase.test_fmt)) << "GetNumPart";
 }
 

@@ -6,61 +6,15 @@
     },
     "tasks": [
         {
-            "label": "Clean",
+            "label": "Run",
             "options": {
-                "cwd": "${workspaceFolder}/Platform/build/"
+                "cwd": "${workspaceFolder}/build/"
             },
-            "command": "./cmake_clean.sh",
-            "detail": "清除CMake生成文件",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Config & Build",
-            "options": {
-                "cwd": "${workspaceFolder}/Platform/build/"
-            },
-            "command": "./cmake_cfg_build.sh",
-            "detail": "使用cmake命令创建makefile,并生成可执行文件",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Build",
-            "options": {
-                "cwd": "${workspaceFolder}/Platform/build/"
-            },
-            "command": "./cmake_build.sh",
+            "command": "./build.sh",
             "detail": "根据makefile生成可执行文件和库文件",
             "problemMatcher": [
                 "$gcc"
             ]
-        },
-        {
-            "label": "Run",
-            "options": {
-                "cwd": "${workspaceFolder}/Platform/build/"
-            },
-            "command": "./cmake_run.sh",
-            "args": [],
-            "detail": "运行程序",
-            "problemMatcher": [
-                "$gcc"
-            ],
-        },
-        {
-            "label": "Init Env",
-            "options": {
-                "cwd": "${workspaceFolder}/Platform/build/"
-            },
-            "command": "./init_env.sh",
-            "args": ["${workspaceFolder}"],
-            "detail": "运行程序",
-            "problemMatcher": [
-                "$gcc"
-            ],
         },
     ]
 }
