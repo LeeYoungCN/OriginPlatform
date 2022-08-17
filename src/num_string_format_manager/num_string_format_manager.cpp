@@ -1,6 +1,7 @@
 #include "num_string_format_manager.h"
 #include <map>
 #include <regex>
+#include "module_log_print.h"
 
 using namespace std;
 
@@ -41,6 +42,8 @@ namespace {
     };
 }
 
+UINT32 NumStringFormatManager::moduleId = 0x01;
+const CHAR *NumStringFormatManager::moduleName = "NumStrFmtMgr";
 // 数字与字符串装换
 string NumStringFormatManager::Num2Str(const UINT32 num, const NumStrFmtEnum numFmt)
 {
@@ -71,6 +74,7 @@ UINT32 NumStringFormatManager::Str2Num(const string &numStr, const NumStrFmtEnum
         retNum += Char2Num(numStr[i - 1], numFmt) * tmpWeight;
         tmpWeight *= weight;
     }
+    MOD_LOG_EVENT(NumStringFormatManager::moduleName, "numStr=%s num=%u", numStr.c_str(), retNum);
     return retNum;
 }
 

@@ -13,6 +13,9 @@ enum class NumStrFmtEnum : UINT8 {
 
 class NumStringFormatManager {
 public:
+    static UINT32 moduleId;
+    static const CHAR* moduleName;
+public:
     // 数字与字符串转换
     static std::string   Num2Str(const UINT32 num, const NumStrFmtEnum numFmt);
     static UINT32        Str2Num(const std::string &numStr);

@@ -13,9 +13,13 @@ typedef unsigned long long int UINT64;
 typedef void VOID;
 typedef char CHAR;
 
-typedef bool BOOL;
-#define TRUE true
-#define FALSE false
-
+struct OP_TimeSt {
+    UINT32 year;
+    UINT32 month;
+    UINT32 day;
+    UINT32 hour;
+    UINT32 minute;
+    UINT32 second;
+};
 
 #endif // PUBLIC_TYPEDEF_H

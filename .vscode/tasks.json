@@ -11,6 +11,9 @@
                 "cwd": "${workspaceFolder}/build/"
             },
             "command": "./build.sh",
+            "args": [
+                "clean"
+            ],
             "detail": "根据makefile生成可执行文件和库文件",
             "problemMatcher": [
                 "$gcc"

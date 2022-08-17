@@ -8,6 +8,4 @@
 #define U32_ITEM_OF(arr) TO_U32(sizeof(arr)/sizeof(arr[0]))
 #define INS(className) className::GetInstance()
 
-
-
 #endif // PUBLIC_MACRO_H
