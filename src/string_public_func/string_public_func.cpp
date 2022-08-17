@@ -1,5 +1,5 @@
 #include "string_public_func.h"
-#include "public_typedef.h"
+#include "platform_public_macro.h"
 using namespace std;
 
 string GetNextStr(string::const_iterator &it, string::const_iterator &end, const char splitChar)

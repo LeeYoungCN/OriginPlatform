@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 #include <iostream>
 #include "num_string_format_manager.h"
-#include "public_typedef.h"
+#include "platform_public_macro.h"
 
 struct TestCaseSt {
     std::string numStr;

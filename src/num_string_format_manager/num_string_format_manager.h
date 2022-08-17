@@ -1,7 +1,7 @@
 #ifndef NUM_STRING_FORMAT_MANAGER_H
 #define NUM_STRING_FORMAT_MANAGER_H
 #include <iostream>
-#include "public_typedef.h"
+#include "platform_public_typedef.h"
 
 enum class NumStrFmtEnum : UINT8 {
     NONE = 0,

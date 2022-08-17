@@ -1,7 +1,7 @@
 #include "num_string_format_manager.h"
 #include <map>
 #include <regex>
-#include "module_log_print.h"
+#include "log_print.h"
 
 using namespace std;
 
@@ -74,7 +74,7 @@ UINT32 NumStringFormatManager::Str2Num(const string &numStr, const NumStrFmtEnum
         retNum += Char2Num(numStr[i - 1], numFmt) * tmpWeight;
         tmpWeight *= weight;
     }
-    MOD_LOG_EVENT(NumStringFormatManager::moduleName, "numStr=%s num=%u", numStr.c_str(), retNum);
+    LOG_EVENT(NumStringFormatManager::moduleName, "numStr=%s,num=%u", numStr.c_str(), retNum);
     return retNum;
 }
 
