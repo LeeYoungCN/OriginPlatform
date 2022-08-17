@@ -3,7 +3,7 @@
 #include <iostream>
 #include "public_typedef.h"
 
-enum class NumStrFmtEnum {
+enum class NumStrFmtEnum : UINT8 {
     NONE = 0,
     BIN = 2,
     OCT = 8,
@@ -14,18 +14,18 @@ enum class NumStrFmtEnum {
 class NumStringFormatManager {
 public:
     // 数字与字符串转换
-    static std::string   Num2Str(const UINT64 num, const NumStrFmtEnum num_fmt);
-    static UINT64        Str2Num(const std::string &num_str);
-    static UINT64        Str2Num(const std::string &num_str, const NumStrFmtEnum num_fmt);
+    static std::string   Num2Str(const UINT32 num, const NumStrFmtEnum numFmt);
+    static UINT32        Str2Num(const std::string &numStr);
+    static UINT32        Str2Num(const std::string &numStr, const NumStrFmtEnum numFmt);
     // 字符串类型判断
-    static NumStrFmtEnum JudgeNumFmt(const std::string &num_str);
-    static bool          IsRightFmt(const std::string &num_str, const NumStrFmtEnum num_fmt);
+    static NumStrFmtEnum JudgeNumFmt(const std::string &numStr);
+    static bool          IsRightFmt(const std::string &numStr, const NumStrFmtEnum numFmt);
     // 字符串分解
-    static bool          HasPrefix(const std::string &num_str, const NumStrFmtEnum num_fmt);
-    static std::string   GetNumPart(const std::string &num_str, const NumStrFmtEnum num_fmt);
-    static UINT32        NumPartLen(const std::string &num_str, const NumStrFmtEnum num_fmt);
-private:
-    static UINT64        Char2Num(const CHAR c, const NumStrFmtEnum num_fmt);
+    static bool          HasPrefix(const std::string &numStr, const NumStrFmtEnum numFmt);
+    static std::string   GetNumPart(const std::string &numStr, const NumStrFmtEnum numFmt);
+    static UINT32        NumPartLen(const std::string &numStr, const NumStrFmtEnum numFmt);
+
+    static UINT32        Char2Num(const CHAR c, const NumStrFmtEnum numFmt);
 };
 
 #endif // NUM_STRING_FORMAT_MANAGER_H

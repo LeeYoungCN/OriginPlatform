@@ -6,7 +6,7 @@
 #include "public_typedef.h"
 
 struct TestCaseSt {
-    std::string num_str;
+    std::string numStr;
     NumStrFmtEnum test_fmt;
     NumStrFmtEnum actual_fmt;
     std::string num_part;

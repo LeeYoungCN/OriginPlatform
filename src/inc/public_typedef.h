@@ -1,13 +1,21 @@
 #ifndef PUBLIC_TYPEDEF_H
 #define PUBLIC_TYPEDEF_H
 
-#define UINT8  char
-#define UINT32 unsigned int
-#define SINT32 int
-#define UINT64 unsigned long long int
-#define SINT64 long long int
+typedef char INT8;
+typedef unsigned char UINT8;
+typedef short int INT16;
+typedef unsigned short int UINT16;
+typedef int INT32;
+typedef unsigned int UINT32;
+typedef long long int INT64;
+typedef unsigned long long int UINT64;
 
-#define VOID void
-#define CHAR char
+typedef void VOID;
+typedef char CHAR;
+
+typedef bool BOOL;
+#define TRUE true
+#define FALSE false
+
 
 #endif // PUBLIC_TYPEDEF_H
