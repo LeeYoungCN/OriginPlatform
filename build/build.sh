@@ -28,12 +28,12 @@ else
     cmake -S . -B ${cache_path}
 fi
 
-pushd ${cache_path}
+# pushd ${cache_path}
 # make VERBOSE=1
-make ${test_exe}
+# make ${test_exe}
 # make install ${component_name}
-popd
-# cmake --build ${cache_path}
+# popd
+cmake --build ${cache_path}
 cmake --install ${cache_path} --component ${component_name}
 
 ./${output_path}/${test_exe}${exe_suffix}
