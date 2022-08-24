@@ -28,14 +28,6 @@ else
     cmake -S . -B ${cache_path}
 fi
 
-<<<<<<< HEAD
-=======
-# pushd ${cache_path}
-# make VERBOSE=1
-# make ${test_exe}
-# make install ${component_name}
-# popd
->>>>>>> 105a607dab4cf05d53c6587aeaf37c02492ea79e
 cmake --build ${cache_path}
 cmake --install ${cache_path} --component ${component_name}
 
