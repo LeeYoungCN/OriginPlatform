@@ -22,9 +22,9 @@ public:
     static UINT32        Str2Num(const std::string &numStr, const NumStrFmtEnum numFmt);
     // 字符串类型判断
     static NumStrFmtEnum JudgeNumFmt(const std::string &numStr);
-    static bool          IsRightFmt(const std::string &numStr, const NumStrFmtEnum numFmt);
+    static BOOL          IsRightFmt(const std::string &numStr, const NumStrFmtEnum numFmt);
     // 字符串分解
-    static bool          HasPrefix(const std::string &numStr, const NumStrFmtEnum numFmt);
+    static BOOL          HasPrefix(const std::string &numStr, const NumStrFmtEnum numFmt);
     static std::string   GetNumPart(const std::string &numStr, const NumStrFmtEnum numFmt);
     static UINT32        NumPartLen(const std::string &numStr, const NumStrFmtEnum numFmt);
 
