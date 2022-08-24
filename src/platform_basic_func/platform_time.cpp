@@ -8,11 +8,9 @@
 #include "platform_public_macro.h"
 #include <ctime>
 #include <stdio.h>
+#include <cstring>
 
-namespace {
-    const UINT32 START_YEAR = 1900;
-    const UINT32 START_MONTH = 1;
-}
+using namespace OriginPlatform;
 
 VOID GetLocalTime(PlatformTimeSt &timeSt)
 {
@@ -26,20 +24,71 @@ VOID GetLocalTime(PlatformTimeSt &timeSt)
     timeSt.second = ltm->tm_sec;
 }
 
-BinRet GetTimeStr(CHAR *timeStr, UINT32 strLen, const PlatformTimeSt &timeSt)
+BinRet GetDateStr(CHAR *dateStr, UINT32 strLen, const PlatformTimeSt &timeSt, const CHAR dateSplit)
 {
-    if ((timeStr == nullptr) || (strLen < TIME_STR_MIN_LEN)) {
-        return OP_ERR;
+    RETURN_ERR_IF_TRUE((dateStr == nullptr) || (strLen < DATE_STR_MIN_LEN));
+
+    INT32 ret = 0;
+
+    if (dateSplit == '\0') {
+        ret = sprintf(dateStr, "%04u%02u%02u", timeSt.year, timeSt.month, timeSt.day);
+        dateStr[strLen - 1] = '\0';
+        RETURN_BIN_RET(ret > 0);
     }
-    INT32 ret = sprintf_s(timeStr, strLen, "%04u-%02u-%02u %02u:%02u:%02u",
-        timeSt.year, timeSt.month, timeSt.day, timeSt.hour, timeSt.minute, timeSt.second);
-    timeStr[strLen - 1] = '\0';
-    return (ret > 0 ? OP_OK : OP_ERR);
+
+    ret = sprintf(dateStr, "%04u-%02u-%02u", timeSt.year, timeSt.month, timeSt.day);
+    for (UINT32 i = 0; i < strLen; i++) {
+        if (dateStr[i] == '-') {
+            dateStr[i] = dateSplit;
+        }
+    }
+    dateStr[strLen - 1] = '\0';
+    RETURN_BIN_RET(ret > 0);
 }
 
-BinRet GetLocalTimeStr(CHAR *timeStr, UINT32 strLen)
+BinRet GetTimeStr(CHAR *timeStr, UINT32 strLen, const PlatformTimeSt &timeSt, const CHAR timeSplit)
+{
+    RETURN_ERR_IF_TRUE((timeStr == nullptr) || (strLen < TIME_STR_MIN_LEN));
+    INT32 ret = 0;
+    if (timeSplit == '\0') {
+        ret = sprintf(timeStr, "%02u%02u%02u", timeSt.hour, timeSt.minute, timeSt.second);
+        timeStr[strLen - 1] = '\0';
+        RETURN_BIN_RET(ret > 0);
+    }
+
+    ret = sprintf(timeStr, "%02u:%02u:%02u", timeSt.hour, timeSt.minute, timeSt.second);
+    for (UINT32 i = 0; i < strLen; i++) {
+        if (timeStr[i] == '-') {
+            timeStr[i] = timeSplit;
+        }
+    }
+    timeStr[strLen - 1] = '\0';
+    RETURN_BIN_RET(ret > 0);
+}
+
+BinRet GetFullTimeStr(CHAR *fullTimeStr, UINT32 strLen, const PlatformTimeSt &timeSt, const CHAR dateSplit, const CHAR timeSplit)
+{
+    RETURN_ERR_IF_TRUE((fullTimeStr == nullptr) || (strLen < FULL_TIME_STR_MIN_LEN));
+
+    BinRet ret = BinRet::OK;
+    ret = GetDateStr(fullTimeStr, strLen, timeSt, dateSplit);
+    RETURN_ERR_IF_TRUE(!IS_OK(ret));
+
+    UINT32 dateStrLen = strlen(fullTimeStr);
+    fullTimeStr[dateStrLen] = ' ';
+
+    CHAR *timeStr = fullTimeStr + dateStrLen + 1;
+    UINT32 timeStrLen = strLen - dateStrLen - 1;
+    ret = GetTimeStr(timeStr, timeStrLen, timeSt, dateSplit);
+    RETURN_ERR_IF_TRUE(!IS_OK(ret));
+
+    fullTimeStr[strLen - 1] = '\0';
+    return BIN_OK;
+}
+
+BinRet GetLocalTimeStr(CHAR *fullTimeStr, UINT32 strLen, const CHAR dateSplit, const CHAR timeSplit)
 {
     PlatformTimeSt timeSt;
     GetLocalTime(timeSt);
-    return GetTimeStr(timeStr, strLen, timeSt);
+    return GetFullTimeStr(fullTimeStr, strLen, timeSt, dateSplit, timeSplit);
 }

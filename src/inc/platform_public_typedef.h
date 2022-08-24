@@ -12,6 +12,7 @@ typedef unsigned long long int UINT64;
 
 typedef void VOID;
 typedef char CHAR;
+typedef bool BOOL;
 
 enum class BinRet : UINT8 {
     OK = 0,

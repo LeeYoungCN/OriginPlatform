@@ -17,8 +17,8 @@ namespace {
     const NumFmtInfoMap g_numFmtInfoMap = {
         {NumStrFmtEnum::BIN, NumFmtInfo{2,  "0b", regex{"^0b[0-1]+$"}}},
         {NumStrFmtEnum::OCT, NumFmtInfo{8,  "0o", regex{"^0o[0-7]+$"}}},
-        {NumStrFmtEnum::DEC, NumFmtInfo{10, "",   regex{"^[0-9]+$"}}},
-        {NumStrFmtEnum::HEX, NumFmtInfo{16, "0x", regex{"^0x[0-9a-fA-F]+$"}}},
+        {NumStrFmtEnum::DEC, NumFmtInfo{10, "",   regex{"^[\\d]+$"}}},
+        {NumStrFmtEnum::HEX, NumFmtInfo{16, "0x", regex{"^0x[\\da-fA-F]+$"}}},
     };
 
     const map<CHAR, UINT32> g_charToNum = {
@@ -61,7 +61,7 @@ UINT32 NumStringFormatManager::Str2Num(const string &numStr)
 // 字符串转数字
 UINT32 NumStringFormatManager::Str2Num(const string &numStr, const NumStrFmtEnum numFmt)
 {
-    if (IsRightFmt(numStr, numFmt) == false) {
+    if (!IsRightFmt(numStr, numFmt)) {
         return 0;
     }
 
@@ -74,7 +74,7 @@ UINT32 NumStringFormatManager::Str2Num(const string &numStr, const NumStrFmtEnum
         retNum += Char2Num(numStr[i - 1], numFmt) * tmpWeight;
         tmpWeight *= weight;
     }
-    LOG_EVENT(NumStringFormatManager::moduleName, "numStr=%s,num=%u", numStr.c_str(), retNum);
+    LOG_EVENT(NumStringFormatManager::moduleId, "numStr=%s,num=%u", numStr.c_str(), retNum);
     return retNum;
 }
 
@@ -91,7 +91,7 @@ UINT32 NumStringFormatManager::Char2Num(const CHAR c, const NumStrFmtEnum numFmt
 }
 
 // 字符串格式是否匹配
-bool NumStringFormatManager::IsRightFmt(const string &numStr, const NumStrFmtEnum numFmt)
+BOOL NumStringFormatManager::IsRightFmt(const string &numStr, const NumStrFmtEnum numFmt)
 {
     if (numFmt == NumStrFmtEnum::NONE) {
         return false;
@@ -112,7 +112,7 @@ NumStrFmtEnum NumStringFormatManager::JudgeNumFmt(const string &numStr)
 }
 
 // 字符串分解
-bool NumStringFormatManager::HasPrefix(const string &numStr, const NumStrFmtEnum numFmt)
+BOOL NumStringFormatManager::HasPrefix(const string &numStr, const NumStrFmtEnum numFmt)
 {
     if (IsRightFmt(numStr, numFmt) == false) {
         return false;
@@ -134,7 +134,7 @@ bool NumStringFormatManager::HasPrefix(const string &numStr, const NumStrFmtEnum
 // 获取字符串数字部分
 string NumStringFormatManager::GetNumPart(const string &numStr, const NumStrFmtEnum numFmt)
 {
-    if (IsRightFmt(numStr, numFmt) == false) {
+    if (!IsRightFmt(numStr, numFmt)) {
         return "";
     }
     
