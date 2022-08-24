@@ -4,7 +4,7 @@ cd ..
 cache_path=buildcache
 output_path=output
 release_path=release
-component_name=PublicFunctionTest
+component_name=OriginPlatform
 test_exe=RunTest
 exe_suffix=""
 
@@ -27,7 +27,13 @@ if [[ ${os} == "MINGW"* ]]; then
 else
     cmake -S . -B ${cache_path}
 fi
-cmake --build ${cache_path} -j16
+
+pushd ${cache_path}
+# make VERBOSE=1
+make ${test_exe}
+# make install ${component_name}
+popd
+# cmake --build ${cache_path}
 cmake --install ${cache_path} --component ${component_name}
 
 ./${output_path}/${test_exe}${exe_suffix}
