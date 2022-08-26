@@ -6,11 +6,49 @@
     },
     "tasks": [
         {
-            "label": "Run",
+            "label": "Build",
             "options": {
                 "cwd": "${workspaceFolder}/build/"
             },
             "command": "./build.sh",
+            "args": [],
+            "detail": "根据makefile生成可执行文件和库文件",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build & Run",
+            "options": {
+                "cwd": "${workspaceFolder}/build/"
+            },
+            "command": "./build.sh clean && ./run.sh",
+            "args": [],
+            "detail": "根据makefile生成可执行文件和库文件",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build & clean",
+            "options": {
+                "cwd": "${workspaceFolder}/build/"
+            },
+            "command": "./build.sh",
+            "args": [
+                "clean"
+            ],
+            "detail": "根据makefile生成可执行文件和库文件",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Run",
+            "options": {
+                "cwd": "${workspaceFolder}/build/"
+            },
+            "command": "./run.sh",
             "args": [
                 "clean"
             ],

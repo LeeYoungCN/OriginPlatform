@@ -15,10 +15,10 @@ namespace {
     using NumFmtInfoMap = map<NumStrFmtEnum, NumFmtInfo>;
 
     const NumFmtInfoMap g_numFmtInfoMap = {
-        {NumStrFmtEnum::BIN, NumFmtInfo{2,  "0b", regex{"^0b[0-1]+$"}}},
-        {NumStrFmtEnum::OCT, NumFmtInfo{8,  "0o", regex{"^0o[0-7]+$"}}},
+        {NumStrFmtEnum::BIN, NumFmtInfo{2,  "0b", regex{"^0[bB][0-1]+$"}}},
+        {NumStrFmtEnum::OCT, NumFmtInfo{8,  "0o", regex{"^0[oO][0-7]+$"}}},
         {NumStrFmtEnum::DEC, NumFmtInfo{10, "",   regex{"^[\\d]+$"}}},
-        {NumStrFmtEnum::HEX, NumFmtInfo{16, "0x", regex{"^0x[\\da-fA-F]+$"}}},
+        {NumStrFmtEnum::HEX, NumFmtInfo{16, "0x", regex{"^0[xX][\\da-fA-F]+$"}}},
     };
 
     const map<CHAR, UINT32> g_charToNum = {
@@ -45,7 +45,7 @@ namespace {
 UINT32 NumStringFormatManager::moduleId = 0x01;
 const CHAR *NumStringFormatManager::moduleName = "NumStrFmtMgr";
 // 数字与字符串装换
-string NumStringFormatManager::Num2Str(const UINT32 num, const NumStrFmtEnum numFmt)
+string NumStringFormatManager::Num2Str(const UINT32 num, const NumStrFmtEnum numFmt, const UINT32 digitNum)
 {
     return "";
 }

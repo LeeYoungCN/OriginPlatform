@@ -17,7 +17,7 @@ public:
     static const CHAR* moduleName;
 public:
     // 数字与字符串转换
-    static std::string   Num2Str(const UINT32 num, const NumStrFmtEnum numFmt);
+    static std::string   Num2Str(const UINT32 num, const NumStrFmtEnum numFmt, const UINT32 digitNum);
     static UINT32        Str2Num(const std::string &numStr);
     static UINT32        Str2Num(const std::string &numStr, const NumStrFmtEnum numFmt);
     // 字符串类型判断

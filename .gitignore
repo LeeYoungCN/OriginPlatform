@@ -6,6 +6,7 @@ release/*
 .vscode/settings.json
 .vscode/launch.json
 .vscode/c_cpp_properties.json
+.vscode/*.log
 
 Platform/*
 lib/*

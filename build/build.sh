@@ -1,12 +1,6 @@
 #!/bin/bash
+source ./project_config.sh
 cd ..
-
-cache_path=buildcache
-output_path=output
-release_path=release
-component_name=OriginPlatform
-test_exe=RunTest
-exe_suffix=""
 
 if [ ! -d buildcache ]; then
     mkdir buildcache
@@ -23,7 +17,6 @@ os=$(uname -s)
 os=${os%_*}
 if [[ ${os} == "MINGW"* ]]; then
     cmake -S . -B ${cache_path}  -G "MinGW Makefiles"
-    exe_suffix=".exe"
 else
     cmake -S . -B ${cache_path}
 fi
@@ -31,4 +24,3 @@ fi
 cmake --build ${cache_path}
 cmake --install ${cache_path} --component ${component_name}
 
-./${output_path}/${test_exe}${exe_suffix}
