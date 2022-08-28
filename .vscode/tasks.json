@@ -8,7 +8,7 @@
         {
             "label": "Build",
             "options": {
-                "cwd": "${workspaceFolder}/build/"
+                "cwd": "${workspaceFolder}/script/"
             },
             "command": "./build.sh",
             "args": [],
@@ -20,7 +20,7 @@
         {
             "label": "Build & Run",
             "options": {
-                "cwd": "${workspaceFolder}/build/"
+                "cwd": "${workspaceFolder}/script/"
             },
             "command": "./build.sh clean && ./run.sh",
             "args": [],
@@ -32,7 +32,7 @@
         {
             "label": "Build & clean",
             "options": {
-                "cwd": "${workspaceFolder}/build/"
+                "cwd": "${workspaceFolder}/script/"
             },
             "command": "./build.sh",
             "args": [
@@ -46,7 +46,7 @@
         {
             "label": "Run",
             "options": {
-                "cwd": "${workspaceFolder}/build/"
+                "cwd": "${workspaceFolder}/script/"
             },
             "command": "./run.sh",
             "args": [

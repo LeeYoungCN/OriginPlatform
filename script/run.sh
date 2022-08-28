@@ -1,10 +1,8 @@
 #!/bin/bash
 source ./project_config.sh
-cd ..
+cd ${root_path}
 exe_suffix=""
 
-os=$(uname -s)
-os=${os%_*}
 if [[ ${os} == "MINGW"* ]]; then
     exe_suffix=".exe"
 fi
