@@ -7,4 +7,4 @@ if [[ ${os} == "MINGW"* ]]; then
     exe_suffix=".exe"
 fi
 
-./${output_path}/${test_exe}${exe_suffix}
+${output_path}/${test_exe}${exe_suffix}

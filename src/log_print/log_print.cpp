@@ -57,7 +57,7 @@ const CHAR* LogPrint::GetFileName(const CHAR* filePath)
 {
     if (filePath == nullptr) {return "no name";}
 
-    UINT32 len = strlen(filePath);
+    UINT32 len = TO_U32(strlen(filePath));
     UINT32 startPos = 0;
     for (UINT32 i = 0; i < len; i++) {
         if(filePath[i] == '\\' || filePath[i] == '/') {

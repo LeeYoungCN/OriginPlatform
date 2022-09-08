@@ -19,8 +19,15 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CODE_PATH      ${CMAKE_SOURCE_DIR}/src)
 set(TEST_PATH      ${CMAKE_SOURCE_DIR}/tests)
-set(CMAKE_C_FLAGS   "-Wall -g")
-set(CMAKE_CXX_FLAGS "-Wall -g")
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    set(OPT     "-g -gdwarf-2")
+elseif(CMAKE_BUILD_TYPE MATCHES Release)
+    set(OPT     "-O3")
+endif()
+
+set(CMAKE_C_FLAGS   "-Wall ${OPT}")
+set(CMAKE_CXX_FLAGS "-Wall ${OPT}")
 
 add_executable(${TEST_TARGET})
 add_library(${LIB_NAME} SHARED)

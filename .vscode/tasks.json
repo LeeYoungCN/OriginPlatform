@@ -6,12 +6,30 @@
     },
     "tasks": [
         {
-            "label": "Build",
+            "label": "Build Debug",
             "options": {
                 "cwd": "${workspaceFolder}/script/"
             },
             "command": "./build.sh",
-            "args": [],
+            "args": [
+                "clean",
+                "Debug"
+            ],
+            "detail": "根据makefile生成可执行文件和库文件",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build & Realese",
+            "options": {
+                "cwd": "${workspaceFolder}/script/"
+            },
+            "command": "./build.sh",
+            "args": [
+                "clean",
+                "Release"
+            ],
             "detail": "根据makefile生成可执行文件和库文件",
             "problemMatcher": [
                 "$gcc"
@@ -24,20 +42,6 @@
             },
             "command": "./build.sh clean && ./run.sh",
             "args": [],
-            "detail": "根据makefile生成可执行文件和库文件",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Build & clean",
-            "options": {
-                "cwd": "${workspaceFolder}/script/"
-            },
-            "command": "./build.sh",
-            "args": [
-                "clean"
-            ],
             "detail": "根据makefile生成可执行文件和库文件",
             "problemMatcher": [
                 "$gcc"

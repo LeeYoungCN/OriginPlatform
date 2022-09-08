@@ -16,12 +16,12 @@ VOID GetLocalTime(PlatformTimeSt &timeSt)
 {
     time_t now = time(0);
     tm* ltm = localtime(&now);
-    timeSt.year = START_YEAR + ltm->tm_year;
-    timeSt.month = START_MONTH + ltm->tm_mon;
-    timeSt.day = ltm->tm_mday;
-    timeSt.hour = ltm->tm_hour;
-    timeSt.minute = ltm->tm_min;
-    timeSt.second = ltm->tm_sec;
+    timeSt.year = START_YEAR + TO_U32(ltm->tm_year);
+    timeSt.month = START_MONTH + TO_U32(ltm->tm_mon);
+    timeSt.day = TO_U32(ltm->tm_mday);
+    timeSt.hour = TO_U32(ltm->tm_hour);
+    timeSt.minute = TO_U32(ltm->tm_min);
+    timeSt.second = TO_U32(ltm->tm_sec);
 }
 
 BinRet GetDateStr(CHAR *dateStr, UINT32 strLen, const PlatformTimeSt &timeSt, const CHAR dateSplit)
@@ -74,12 +74,12 @@ BinRet GetFullTimeStr(CHAR *fullTimeStr, UINT32 strLen, const PlatformTimeSt &ti
     ret = GetDateStr(fullTimeStr, strLen, timeSt, dateSplit);
     RETURN_ERR_IF_TRUE(!IS_OK(ret));
 
-    UINT32 dateStrLen = strlen(fullTimeStr);
+    UINT32 dateStrLen = TO_U32(strlen(fullTimeStr));
     fullTimeStr[dateStrLen] = ' ';
 
     CHAR *timeStr = fullTimeStr + dateStrLen + 1;
     UINT32 timeStrLen = strLen - dateStrLen - 1;
-    ret = GetTimeStr(timeStr, timeStrLen, timeSt, dateSplit);
+    ret = GetTimeStr(timeStr, timeStrLen, timeSt, timeSplit);
     RETURN_ERR_IF_TRUE(!IS_OK(ret));
 
     fullTimeStr[strLen - 1] = '\0';
