@@ -10,11 +10,10 @@ root_path=$(pwd)
 echo "root_path=${root_path}"
 buildcache_path=${root_path}/buildcache
 echo "buildcache_path=${buildcache_path}"
-output_path=${root_path}/output
+output_path=${root_path}/app
 echo "output_path=${output_path}"
 release_path=${root_path}/release
 echo "release_path=${release_path}"
-
 
 component_name=OriginPlatform
 test_exe=RunTest
