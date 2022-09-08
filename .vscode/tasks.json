@@ -21,7 +21,7 @@
             ]
         },
         {
-            "label": "Build & Realese",
+            "label": "Build Release",
             "options": {
                 "cwd": "${workspaceFolder}/script/"
             },
