@@ -4,6 +4,7 @@ add_subdirectory(string_public_func)
 add_subdirectory(num_string_format_manager)
 add_subdirectory(log_print)
 add_subdirectory(platform_basic_func)
+add_subdirectory(file_parser)
 
 FILE(GLOB HEAD_LIST ${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h)
 install(FILES ${HEAD_LIST} DESTINATION ${HEAD_INSTALL_PATH} COMPONENT ${PROJECT_NAME})
