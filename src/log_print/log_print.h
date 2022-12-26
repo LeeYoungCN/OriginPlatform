@@ -1,37 +1,45 @@
-/**************************************************************
- * Peoject: Origin Platform
- * Description: 日志打印管理
- * Author: Li Yang
- * Date: 2022/08/07
- **************************************************************/
 #ifndef LOG_PRINT_H
 #define LOG_PRINT_H
-#include "platform_public_typedef.h"
-#include "log_public_def.h"
 
-namespace OriginPlatform {
-    const UINT32 MAX_FORMAT_STR_LEN = 256;
-    const UINT32 MAX_LOG_STR_LEN = 512;
-};
+#include <stdio.h>
+#include <stdint.h>
 
-class LogPrint {
-public:
-    static LogPrint &GetInstance();
+#ifdef __cplusplus
+extern "C" {
+#endif // __c_plus_plus
 
-    VOID LogPrintInit(LogLevel minPrintLevel, LogPrintScreen screenEnable, LogWriteFile writeFile);
-    VOID Print(const UINT32 modId, LogLevel level, const CHAR *fileName, UINT32 line, const CHAR *fmt, ...);
+#define LOG(modInfo, level, fmt, ...) LogPrint(modInfo, level, __FILE__, __LINE__, fmt, ##__VA_ARGS__)
 
-private:
-    LogPrint() = default;
-    ~LogPrint() = default;
-    const CHAR* GetFileName(const CHAR* filePath);
-    VOID PrintScreen(const CHAR *logStr);
-    const CHAR *GetLogLevel(LogLevel level);
+#define LOG_DEBUG(modInfo, fmt, ...) LOG(modInfo, DEBUG, fmt, ##__VA_ARGS__)
+#define LOG_INFO(modInfo, fmt, ...) LOG(modInfo, INFO, fmt, ##__VA_ARGS__)
+#define LOG_WARNING(modInfo, fmt, ...) LOG(modInfo, WARNING, fmt, ##__VA_ARGS__)
+#define LOG_ERROR(modInfo, fmt, ...) LOG(modInfo, ERROR, fmt, ##__VA_ARGS__)
+#define LOG_EVENT(modInfo, fmt, ...) LOG(modInfo, EVENT, fmt, ##__VA_ARGS__)
 
-    bool m_isForbid = false;
-    LogLevel m_minPrintLevel = LogLevel::NO_PRINT;
-    LogPrintScreen m_printScreen = LogPrintScreen::DISABLE;
-    LogWriteFile   m_writeFile = LogWriteFile::DISABLE;
-};
+typedef enum LogLevel {
+    DEBUG,
+    INFO,
+    WARNING,
+    ERROR,
+    EVENT,
+    NO_PRINT
+} LogLevel;
+
+typedef enum LogPrintScreen {
+    PRINT_ENABLE = 0,
+    PRINT_DISABLE,
+} LogPrintScreen;
+
+typedef enum LogWriteFile {
+    WRITE_ENABLE = 0,
+    WRITE_DISABLE,
+} LogWriteFile;
+
+void LogPrintInit(LogLevel minPrintLevel, LogPrintScreen screenEnable, LogWriteFile writeFile);
+void LogPrint(const uint32_t modId, LogLevel level, const char *fileName, uint32_t line, const char *fmt, ...);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 #endif // LOG_PRINT_H

@@ -15,14 +15,14 @@ string GetNextStr(string::const_iterator &it, string::const_iterator &end, const
 }
 
 namespace UTF8 {
-const UINT32 CHINESE_WORD_SPACE_NUM = 2;
-const UINT32 CHINESE_WORD_CHAR_NUM  = 3;
-const UINT8  UTF8_MULTI_CHAR_FLAG = 0x80;
+const uint32_t CHINESE_WORD_SPACE_NUM = 2;
+const uint32_t CHINESE_WORD_CHAR_NUM  = 3;
+const uint8_t  UTF8_MULTI_CHAR_FLAG = 0x80;
 
-UINT64 GetStrSpaceSize(const std::string str)
+uint64_t GetStrSpaceSize(const std::string str)
 {
-    UINT64 size = 0; 
-    for(UINT32 i = 0; str[i] != '\0';) {
+    uint64_t size = 0; 
+    for(uint32_t i = 0; str[i] != '\0';) {
         if (str[i] & UTF8_MULTI_CHAR_FLAG) {
             size += CHINESE_WORD_SPACE_NUM;
             i    += CHINESE_WORD_CHAR_NUM;
@@ -34,10 +34,10 @@ UINT64 GetStrSpaceSize(const std::string str)
     return size;
 }
 
-string GetStrWithSpace(const std::string str, const UINT32 maxLen, const UINT32 suffixSpceNum)
+string GetStrWithSpace(const std::string str, const uint32_t maxLen, const uint32_t suffixSpceNum)
 {
-    UINT64 tmpNum = GetStrSpaceSize(str);
-    UINT64 spaceNum = suffixSpceNum + (maxLen > tmpNum ? maxLen - tmpNum : 0);
+    uint64_t tmpNum = GetStrSpaceSize(str);
+    uint64_t spaceNum = suffixSpceNum + (maxLen > tmpNum ? maxLen - tmpNum : 0);
 
     return str + string(spaceNum, ' ');
 }

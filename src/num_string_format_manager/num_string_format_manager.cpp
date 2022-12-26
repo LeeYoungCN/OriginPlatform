@@ -7,7 +7,7 @@ using namespace std;
 
 namespace {
     struct NumFmtInfo {
-        const UINT32 weight;
+        const uint32_t weight;
         const string prefix;
         const regex pattern;
     };
@@ -21,7 +21,7 @@ namespace {
         {NumStrFmtEnum::HEX, NumFmtInfo{16, "0x", regex{"^0[xX][\\da-fA-F]+$"}}},
     };
 
-    const map<CHAR, UINT32> g_charToNum = {
+    const map<char, uint32_t> g_charToNum = {
         {'0',  0},  {'1',  1},
         {'2',  2},  {'3',  3},
         {'4',  4},  {'5',  5},
@@ -36,22 +36,22 @@ namespace {
         {'F', 15},  {'f', 15},
     };
 
-    const CHAR g_numToChar[] = {
+    const char g_numTochar[] = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         'A', 'B', 'C', 'D', 'E', 'F'
     };
 }
 
-UINT32 NumStringFormatManager::moduleId = 0x01;
-const CHAR *NumStringFormatManager::moduleName = "NumStrFmtMgr";
+uint32_t NumStringFormatManager::moduleId = 0x01;
+const char *NumStringFormatManager::moduleName = "NumStrFmtMgr";
 // 数字与字符串装换
-string NumStringFormatManager::Num2Str(const UINT32 num, const NumStrFmtEnum numFmt, const UINT32 digitNum)
+string NumStringFormatManager::Num2Str(const uint32_t num, const NumStrFmtEnum numFmt, const uint32_t digitNum)
 {
     return "";
 }
 
 // 字符串转数字
-UINT32 NumStringFormatManager::Str2Num(const string &numStr)
+uint32_t NumStringFormatManager::Str2Num(const string &numStr)
 {
     NumStrFmtEnum numFmt = JudgeNumFmt(numStr);
 
@@ -59,18 +59,18 @@ UINT32 NumStringFormatManager::Str2Num(const string &numStr)
 }
 
 // 字符串转数字
-UINT32 NumStringFormatManager::Str2Num(const string &numStr, const NumStrFmtEnum numFmt)
+uint32_t NumStringFormatManager::Str2Num(const string &numStr, const NumStrFmtEnum numFmt)
 {
     if (!IsRightFmt(numStr, numFmt)) {
         return 0;
     }
 
-    const UINT32 weight = g_numFmtInfoMap.at(numFmt).weight;
-    UINT32 tmpWeight = 1;
-    UINT32 retNum = 0;
-    UINT32 prefixLen = g_numFmtInfoMap.at(numFmt).prefix.length();
+    const uint32_t weight = g_numFmtInfoMap.at(numFmt).weight;
+    uint32_t tmpWeight = 1;
+    uint32_t retNum = 0;
+    uint32_t prefixLen = g_numFmtInfoMap.at(numFmt).prefix.length();
 
-    for (UINT32 i = numStr.length(); i > prefixLen; i--) {
+    for (uint32_t i = numStr.length(); i > prefixLen; i--) {
         retNum += Char2Num(numStr[i - 1], numFmt) * tmpWeight;
         tmpWeight *= weight;
     }
@@ -79,9 +79,9 @@ UINT32 NumStringFormatManager::Str2Num(const string &numStr, const NumStrFmtEnum
 }
 
 // 字符转数字
-UINT32 NumStringFormatManager::Char2Num(const CHAR c, const NumStrFmtEnum numFmt)
+uint32_t NumStringFormatManager::Char2Num(const char c, const NumStrFmtEnum numFmt)
 {
-    UINT32 num = g_charToNum.at(c);
+    uint32_t num = g_charToNum.at(c);
 
     if (num >= g_numFmtInfoMap.at(numFmt).weight) {
         return 0;
@@ -91,7 +91,7 @@ UINT32 NumStringFormatManager::Char2Num(const CHAR c, const NumStrFmtEnum numFmt
 }
 
 // 字符串格式是否匹配
-BOOL NumStringFormatManager::IsRightFmt(const string &numStr, const NumStrFmtEnum numFmt)
+bool NumStringFormatManager::IsRightFmt(const string &numStr, const NumStrFmtEnum numFmt)
 {
     if (numFmt == NumStrFmtEnum::NONE) {
         return false;
@@ -112,14 +112,14 @@ NumStrFmtEnum NumStringFormatManager::JudgeNumFmt(const string &numStr)
 }
 
 // 字符串分解
-BOOL NumStringFormatManager::HasPrefix(const string &numStr, const NumStrFmtEnum numFmt)
+bool NumStringFormatManager::HasPrefix(const string &numStr, const NumStrFmtEnum numFmt)
 {
     if (IsRightFmt(numStr, numFmt) == false) {
         return false;
     }
 
     string prefix = g_numFmtInfoMap.at(numFmt).prefix;
-    UINT32 prefixLen = prefix.length();
+    uint32_t prefixLen = prefix.length();
     if (numStr.length() < prefixLen) {
         return true;
     }
@@ -142,7 +142,7 @@ string NumStringFormatManager::GetNumPart(const string &numStr, const NumStrFmtE
 }
 
 // 字符串数字部分的长度
-UINT32 NumStringFormatManager::NumPartLen(const string &numStr, const NumStrFmtEnum numFmt)
+uint32_t NumStringFormatManager::NumPartLen(const string &numStr, const NumStrFmtEnum numFmt)
 {
     return GetNumPart(numStr, numFmt).length();
 }

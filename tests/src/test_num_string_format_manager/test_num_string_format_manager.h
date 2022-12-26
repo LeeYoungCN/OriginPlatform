@@ -10,7 +10,7 @@ struct TestCaseSt {
     NumStrFmtEnum test_fmt;
     NumStrFmtEnum actual_fmt;
     std::string num_part;
-    UINT64 num;
+    uint64_t num;
 };
 
 class TestNumStringFormatManager : public testing::Test {
