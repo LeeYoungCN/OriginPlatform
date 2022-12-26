@@ -1,3 +1,9 @@
+/*
+ * Project: Origin Platform
+ * Description: 基础函数 -- Log打印
+ * Author: Li Yang
+ * Date: 2022/08/07
+ */
 #include "log_print.h"
 #include <stdarg.h>
 #include <string.h>

@@ -17,23 +17,19 @@ if (NOT LIB_INSTALL_PATH)
     set(LIB_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/lib CACHE STRING "Library head file install path" FORCE)
 endif()
 
-set(LIB_CODE_PATH           ${CMAKE_SOURCE_DIR}/src)
+set(LIB_NAME OriginPlatform)
 
-set(LIB_NAME    OriginPlatform)
-set(CMAKE_DEFAULT_BUILD_TYPE Debug)
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     set(OPT     "-g")
 elseif(CMAKE_BUILD_TYPE MATCHES Release)
     set(OPT     "-O3")
 endif()
 
-
-
 set(CMAKE_C_FLAGS   "-Wall ${OPT}")
 set(CMAKE_CXX_FLAGS "-Wall ${OPT}")
 
 add_library(${LIB_NAME} SHARED)
-add_subdirectory(${LIB_CODE_PATH})
+add_subdirectory(src)
 
 file(GLOB LIB_LIST ${LIBRARY_OUTPUT_PATH}/*${DANYMIC_LIBRARY_SUFFIX})
 install(FILES ${LIB_LIST} DESTINATION ${LIB_INSTALL_PATH} COMPONENT ${PROJECT_NAME})

@@ -1,3 +1,9 @@
+/*
+ * Project: Origin Platform
+ * Description: 基础函数 -- 类型定义
+ * Author: Li Yang
+ * Date: 2022/08/07
+ */
 #ifndef PLATFORM_PUBLIC_TYPEDEF_H
 #define PLATFORM_PUBLIC_TYPEDEF_H
 #include <stdint.h>

@@ -6,13 +6,15 @@ set(TEST_TARGET RunTest)
 add_executable(${TEST_TARGET})
 add_dependencies(${TEST_TARGET} ${LIB_NAME})
 
-link_directories(
+target_include_directories(${TEST_TARGET} PRIVATE
+    ${GOOGLE_TEST_PATH}
+    ${HEAD_FILE_INSTALL_PATH}
+)
+
+target_link_directories(${TEST_TARGET} PRIVATE
     ${GOOGLE_TEST_PATH}/lib/${CMAKE_SYSTEM_NAME}
     ${LIB_INSTALL_PATH}
 )
-target_include_directories(${TEST_TARGET} PRIVATE ${GOOGLE_TEST_PATH})
 target_link_libraries(${TEST_TARGET} ${LIB_NAME} ${GTEST_LIB}/libgtest${STATIC_LIBRARY_SUFFIX} pthread)
-
-install(FILES ${LIB_LIST} DESTINATION ${EXECUTABLE_OUTPUT_PATH} COMPONENT ${PROJECT_NAME})
 
 add_subdirectory(src)

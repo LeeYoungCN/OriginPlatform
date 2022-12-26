@@ -1,3 +1,9 @@
+/*
+ * Project: Origin Platform
+ * Description: 基础函数 -- LOG打印
+ * Author: Li Yang
+ * Date: 2022/08/07
+ */
 #ifndef LOG_PRINT_H
 #define LOG_PRINT_H
 

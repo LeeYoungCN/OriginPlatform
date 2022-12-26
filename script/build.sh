@@ -20,14 +20,14 @@ rm -rf ${output_path}
 rm -rf ${release_path}
 
 if [[ ${os} == "MINGW"* ]]; then
-    cmake -S . -B ${buildcache_path} -DCMAKE_BUILD_TYPE:STRING=${build_type} -G "MinGW Makefiles"
+    cmake -S . -B ${buildcache_path} -DCMAKE_BUILD_TYPE:STRING=${build_type} -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -G "MinGW Makefiles"
 else
-    cmake -S . -B ${buildcache_path} -DCMAKE_BUILD_TYPE:STRING=${build_type}
+    cmake -S . -B ${buildcache_path} -DCMAKE_BUILD_TYPE:STRING=${build_type} -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 fi
 
 cmake --build ${buildcache_path}
 cmake --install ${buildcache_path} --component ${component_name}
 # pushd  ${buildcache_path}
-# make all
+# make all -j
 # make install
 

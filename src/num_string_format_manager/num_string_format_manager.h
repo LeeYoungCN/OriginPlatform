@@ -26,9 +26,9 @@ public:
     // 字符串分解
     static bool          HasPrefix(const std::string &numStr, const NumStrFmtEnum numFmt);
     static std::string   GetNumPart(const std::string &numStr, const NumStrFmtEnum numFmt);
-    static uint32_t        NumPartLen(const std::string &numStr, const NumStrFmtEnum numFmt);
+    static uint32_t      NumPartLen(const std::string &numStr, const NumStrFmtEnum numFmt);
 
-    static uint32_t        Char2Num(const char c, const NumStrFmtEnum numFmt);
+    static uint32_t      Char2Num(const char c, const NumStrFmtEnum numFmt);
 };
 
 #endif // NUM_STRING_FORMAT_MANAGER_H

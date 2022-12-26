@@ -1,9 +1,10 @@
-/**************************************************************
- * Peoject: Origin Platform
+/*
+ * Project: Origin Platform
  * Description: 基础函数 -- 时间处理
  * Author: Li Yang
  * Date: 2022/08/07
- **************************************************************/
+ */
+
 #include "platform_time.h"
 #include <time.h>
 #include <string.h>
@@ -22,7 +23,7 @@ void GetLocalTime(PlatformTimeSt *timeSt)
 
 ErrorCode GetDateStr(char *dateStr, uint32_t strLen, const PlatformTimeSt *timeSt, const char dateSplit)
 {
-    if ((dateStr == NULL) || (strlen < DATE_STR_MIN_LEN)) {
+    if ((dateStr == NULL) || (strLen < DATE_STR_MIN_LEN)) {
         return ERROR_SYS_ERR;
     }
 

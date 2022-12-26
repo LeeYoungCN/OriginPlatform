@@ -1,3 +1,10 @@
+/*
+ * Project: Origin Platform
+ * Description: 基础函数 -- 公共宏定义
+ * Author: Li Yang
+ * Date: 2022/08/07
+ */
+
 #ifndef PUBLIC_MACRO_H
 #define PUBLIC_MACRO_H
 

@@ -36,7 +36,7 @@ namespace {
         {'F', 15},  {'f', 15},
     };
 
-    const char g_numTochar[] = {
+    const char g_numToChar[] = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         'A', 'B', 'C', 'D', 'E', 'F'
     };
