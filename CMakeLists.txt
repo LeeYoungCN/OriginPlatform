@@ -20,7 +20,7 @@ endif()
 set(LIB_NAME OriginPlatform)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
-    set(OPT     "-g")
+    set(OPT     "-g -O0")
 elseif(CMAKE_BUILD_TYPE MATCHES Release)
     set(OPT     "-O3")
 endif()
