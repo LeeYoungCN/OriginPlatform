@@ -48,9 +48,8 @@ void LogPrint(const uint32_t modId, LogLevel level, const char *fileName, uint32
     va_end(argList);
     if (sprintfRet < 0) {return;}
 
-    char timeStr[100];
-    GetLocalTimeStr(timeStr, 100, '-', ':');
-    printf("time %s", timeStr);
+    char timeStr[FULL_TIME_STR_MIN_LEN];
+    GetLocalTimeStr(timeStr, FULL_TIME_STR_MIN_LEN, '-', ':');
     char logStr[MAX_LOG_STR_LEN] = "\0";
     sprintfRet = sprintf(logStr, "%s %s M%02u %s[%u] %s",
         timeStr, GetLogLevel(level), modId, GetFileName(fileName), line, formatStr);

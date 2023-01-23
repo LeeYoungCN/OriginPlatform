@@ -34,6 +34,4 @@ add_subdirectory(src)
 file(GLOB LIB_LIST ${LIBRARY_OUTPUT_PATH}/*${DANYMIC_LIBRARY_SUFFIX})
 install(FILES ${LIB_LIST} DESTINATION ${LIB_INSTALL_PATH} COMPONENT ${PROJECT_NAME})
 
-if(CMAKE_BUILD_TYPE MATCHES Debug)
-    add_subdirectory(tests)
-endif()
+add_subdirectory(tests)

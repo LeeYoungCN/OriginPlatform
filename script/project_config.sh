@@ -1,6 +1,6 @@
 #!/bin/bash
 os="$(uname -s)"
-if [[ "${os}" == "MINGW"* ]]; then
+if [[ ${os} =~ "MingGW" ]];
     os="Windows"
 fi
 echo "os=${os}"

@@ -1,7 +1,6 @@
 #!/bin/bash
 script_path=$(cd $(dirname "$0"); pwd)
 root_path=$(cd ${script_path}/..; pwd)
-
 source ${script_path}/project_config.sh
 
 enable_clean=1
@@ -9,10 +8,9 @@ enable_install=1
 build_type="Debug"
 target="${lib_target_name}"
 verbose=OFF
-
-args=$(getopt -o civrgt: --long clean,install,verbose,release,gtest,target -n "$0" -- "$@")
+args=$(getopt -o civrgt: --long clean,install,verbose,release,gtest,target: -n "$0" -- "$@")
 eval set -- "${args}"
-
+echo ${args}
 while true; do
     case ${1} in
         -c|--clean)
