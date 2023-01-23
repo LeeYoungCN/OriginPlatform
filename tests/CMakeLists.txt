@@ -1,7 +1,7 @@
-set(EXECUTABLE_OUTPUT_PATH  ${CMAKE_SOURCE_DIR}/app)
+set(EXECUTABLE_OUTPUT_PATH  ${CMAKE_BINARY_DIR}/bin)
 set(GOOGLE_TEST_PATH        ${CMAKE_SOURCE_DIR}/google_test)
 set(GTEST_LIB               ${GOOGLE_TEST_PATH}/lib/${CMAKE_SYSTEM_NAME})
-set(TEST_TARGET RunTest)
+set(TEST_TARGET test_origin)
 
 add_executable(${TEST_TARGET})
 add_dependencies(${TEST_TARGET} ${LIB_NAME})

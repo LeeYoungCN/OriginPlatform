@@ -1,19 +1,18 @@
 #!/bin/bash
-os=$(uname -s)
-os=${os%_*}
-echo "os=${os}"
-curr_path=$(pwd)
-if [ "${curr_path##*/}" == "script" ]; then
-    cd ..
+os="$(uname -s)"
+if [[ "${os}" == "MINGW"* ]]; then
+    os="Windows"
 fi
-root_path=$(pwd)
-echo "root_path=${root_path}"
-buildcache_path=${root_path}/buildcache
+echo "os=${os}"
+buildcache_path="${root_path}/buildcache"
 echo "buildcache_path=${buildcache_path}"
-output_path=${root_path}/app
-echo "output_path=${output_path}"
 release_path=${root_path}/release
 echo "release_path=${release_path}"
 
-component_name=OriginPlatform
-test_exe=RunTest
+lib_target_name="origin"
+test_target_name="test_origin"
+
+test_exe_name="${test_target_name}"
+test_exe_path="${buildcache_path}/bin"
+
+component_name="OriginPlatform"

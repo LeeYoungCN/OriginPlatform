@@ -1,10 +1,15 @@
 #!/bin/bash
-source ./project_config.sh
-cd ${root_path}
-exe_suffix=""
+script_path=$(cd $(dirname "$0"); pwd)
+root_path=$(cd ${script_path}/..; pwd)
 
-if [[ ${os} == "MINGW"* ]]; then
+source ${script_path}/project_config.sh
+
+args=$(getopt -o civrgt: --long clean,install,verbose,release,gtest,target -n "$0" -- "$@")
+#eval set -- "${args}"
+echo ${args}
+${script_path}/build.sh -t ${@:1} 
+
+if [[ ${os} == "Windows" ]]; then
     exe_suffix=".exe"
 fi
-
-${output_path}/${test_exe}${exe_suffix}
+${test_exe_path}/${test_exe_path}${exe_suffix}
