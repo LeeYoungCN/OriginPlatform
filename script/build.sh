@@ -10,7 +10,7 @@ target="${lib_target_name}"
 verbose=OFF
 args=$(getopt -o civrgt: --long clean,install,verbose,release,gtest,target: -n "$0" -- "$@")
 eval set -- "${args}"
-echo ${args}
+
 while true; do
     case ${1} in
         -c|--clean)
